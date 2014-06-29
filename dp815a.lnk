@@ -1,0 +1,105 @@
+=================================================================
+National Semiconductor DP83815 Another NDIS 2.0.1 MAC driver 1.07
+=================================================================
+
+1.Introduction
+
+I have published previously a DP83815 driver based on NSC code.
+Though NSC does not mention anything to use secondarily the code, 
+I think that NSC has still the implicit copyright to the secondary 
+code modified by me. 
+I wrote another driver at my own code to avoid such indefinite status.
+
+Included files are:
+dp815a.os2	NDIS 2.0.1 MAC driver
+dp815a.nif	Network Information File
+dp815a.sym	Symbol Map file
+dp815a.lnk	Document (this file)
+source.zip	source files
+
+You could download the latest file on the gomi:NDIS MAC Drivers page,
+URL http://www.os2warp.be/index2.php?name=gomindis .
+
+
+2.No Warranty
+
+This code is provided 'AS IS' and any warranties are disclaimed.
+
+
+3.Functional restrictions
+
+- Transmition of pause frame is not supported.(receive only)
+- External PHYs are not supported. Only built-in PHY is supported.
+
+
+4.Considerable configuration keywords
+
+- NSC says that TXEARLY(TxDrth), TXFLTH and TXMXDMA restrict each other. 
+    FIFOsize(2KB) - TXEARLY >= TXFLTH > TXMXDMA
+  Be careful if you want to modify these parameters.
+
+- The keywords, IHCTL, IHTIME, are usable only with DP83816.
+  With DP83815, these keywords are simply ignored.
+
+
+5.Note
+
+- No test on SMP environment. (I gess it can work.)
+
+
+6.Redistribution with modification
+
+Your should add your copyright notice, 
+"(c)Copyright 2004 your name. All rights reserved."
+and remove mine (if it exists),
+"(c)Copyright 2004 chagrin. Some rights reserved."
+
+This means that the modified binary/source is not mine, but yours, 
+regardless of the degree of the modification. 
+You can redistribute, of course, that for the commercial purpose 
+without any fee to me, without releasing the source, if you want.
+
+Don't forget that I'm never liable for your product.
+(You, also, should add a disclaimer.)
+
+
+7.History
+
+ver.1.07 - 12/17, 2005.
+- 1 new keyword, IRQ15OVR, was added.
+
+ver.1.06 - 11/15, 2005.
+- Workaround for Virtual PC.
+
+ver.1.05 - 4/1, 2004.
+- Two new keywords, IHCTL and IHTIME, were added for DP83816.
+
+ver.1.04 - 12/29, 2003.
+- Bus master enable and memory space enable bits in PCI command register 
+   are scanned at the initial time.
+
+ver.1.03 - 11/24, 2003.
+- Bugfix: TXQUEUE can be specified larger than 28, on that condition 
+   Transmit queues initialization failure has occured.
+
+ver.1.02 - 11/18, 2003.
+- Power Management capability in PCI register is scanned at initial time.
+- EARLYMEMINIT=TRUE in config.sys was supported.
+
+ver.1.01 - 7/11, 2003.
+- Bugfix: Rejection of tx fragment type 2, GDT selector, was removed.
+- Rx queue logic was modified to permit RxRelease before return from 
+  RxChain call to protocol.
+- Insertion of I/O delay into PHY access is added.(see note)
+
+ver.1.00 - 12/8, 2002.
+-  Initial release.
+
+
+8.Contact
+
+Access os2warp.be Technical Support Center,
+URL http://www.os2warp.be/support/
+ or
+Email to YANAGIHARA Nobuyuki,
+ <VYL00513@nifty.ne.jp>
